@@ -9,9 +9,9 @@ from typing import List
 from torch_geometric.nn.pool.consecutive import consecutive_cluster
 from torch_geometric.data import extract_tar
 
-from src.datasets import BaseDataset
-from src.data import Data, InstanceData
-from src.datasets.dales_config import *
+from ..datasets import BaseDataset
+from ..data import Data, InstanceData
+from ..datasets.dales_config import *
 
 
 DIR = os.path.dirname(os.path.realpath(__file__))
@@ -57,13 +57,22 @@ def read_dales_tile(
         to their train ID.
     """
     data = Data()
-    key = 'testing'
+    # key = 'testing'
+    key = 'vertex'
     with open(filepath, "rb") as f:
         tile = PlyData.read(f)
 
+        # if xyz:
+        #     pos = torch.stack([
+        #         torch.FloatTensor(tile[key][axis])
+        #         for axis in ["x", "y", "z"]], dim=-1)
+        #     pos_offset = pos[0]
+        #     data.pos = pos - pos_offset
+        #     data.pos_offset = pos_offset
+
         if xyz:
             pos = torch.stack([
-                torch.FloatTensor(tile[key][axis])
+                torch.FloatTensor(np.ascontiguousarray(tile[key][axis]))
                 for axis in ["x", "y", "z"]], dim=-1)
             pos_offset = pos[0]
             data.pos = pos - pos_offset
@@ -71,8 +80,24 @@ def read_dales_tile(
 
         if intensity:
             # Heuristic to bring the intensity distribution in [0, 1]
-            data.intensity = torch.FloatTensor(
-                tile[key]['intensity']).clip(min=0, max=60000) / 60000
+            # data.intensity = torch.FloatTensor(
+            #     tile[key]['intensity']).clip(min=0, max=60000) / 60000
+
+            # use RGB values to compute grayscale values for intensity
+            vertex_properties = tile['vertex'].properties
+            property_names = [prop.name for prop in vertex_properties]
+            if 'red' in property_names:
+                rgb = torch.stack([
+                    torch.FloatTensor(tile[key][axis])
+                    for axis in ["red", "green", "blue"]], dim=-1)
+
+                weights = torch.tensor([0.2989, 0.5870, 0.1140], dtype=rgb.dtype, device=rgb.device)
+                data.intensity = torch.matmul(rgb, weights)
+                data.intensity = (data.intensity - 0) / (255 - 0)
+            else:
+                data.intensity = torch.FloatTensor(
+                    tile[key]['intensity'])
+                data.intensity = (data.intensity - data.intensity.min()) / (data.intensity.max() - data.intensity.min())
 
         if semantic:
             y = torch.LongTensor(tile[key]['sem_class'])
@@ -222,7 +247,7 @@ class DALES(BaseDataset):
         This applies to both `Data.y` and `Data.obj.y`.
         """
         return read_dales_tile(
-            raw_cloud_path, intensity=True, semantic=True, instance=True,
+            raw_cloud_path, intensity=True, semantic=False, instance=False,
             remap=True)
 
     @property

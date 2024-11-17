@@ -33,7 +33,7 @@ min_instance_size: 100
 # Mini dataset
 # Each dataset has a 'mini' version which only uses a small portion of
 # the data. Can be useful for experimentation and debugging
-mini: False
+mini: True
 
 # I/O parameters
 save_y_to_csr: True  # save 'y' label histograms using a custom CSR format to save memory and I/O time

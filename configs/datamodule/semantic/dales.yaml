@@ -2,7 +2,8 @@
 defaults:
   - /datamodule/semantic/default.yaml
 
-_target_: src.datamodules.dales.DALESDataModule
+_target_: superpoint_transformer.src.datamodules.dales.DALESDataModule
+#_target_: src.datamodules.dales.DALESDataModule
 
 # These parameters are not actually used by the DataModule, but are used
 # here to facilitate model parameterization with config interpolation
@@ -131,16 +132,16 @@ pre_transform:
     - transform: DataTo
       params:
         device: 'cpu'
+    - transform: GroundElevation
+      params:
+        z_threshold: ${datamodule.ground_threshold}
+        scale: ${datamodule.ground_scale}
     - transform: PointFeatures
       params:
         keys: ${datamodule.point_hf_preprocess}
         k_min: 1
         k_step: ${datamodule.knn_step}
         k_min_search: ${datamodule.knn_min_search}
-    - transform: GroundElevation
-      params:
-        z_threshold: ${datamodule.ground_threshold}
-        scale: ${datamodule.ground_scale}
     - transform: DataTo
       params:
         device: 'cuda'

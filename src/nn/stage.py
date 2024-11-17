@@ -1,10 +1,10 @@
 import torch
 from torch import nn
 
-from src.nn import MLP, TransformerBlock, BatchNorm, UnitSphereNorm
-from src.nn.pool import pool_factory
-from src.nn.unpool import *
-from src.nn.fusion import CatFusion, fusion_factory
+from ..nn import MLP, TransformerBlock, BatchNorm, UnitSphereNorm
+from ..nn.pool import pool_factory
+from ..nn.unpool import *
+from ..nn.fusion import CatFusion, fusion_factory
 
 
 __all__ = ['Stage', 'DownNFuseStage', 'UpNFuseStage', 'PointStage']

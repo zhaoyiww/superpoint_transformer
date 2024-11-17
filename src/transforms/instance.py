@@ -1,7 +1,7 @@
 import torch
-from src.data import NAG, InstanceData
-from src.transforms import Transform
-from src.utils import cluster_radius_nn_graph, knn_1_graph, to_trimmed
+from ..data import NAG, InstanceData
+from ..transforms import Transform
+from ..utils import cluster_radius_nn_graph, knn_1_graph, to_trimmed
 from torch_geometric.nn.pool.consecutive import consecutive_cluster
 
 

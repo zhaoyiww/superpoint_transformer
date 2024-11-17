@@ -5,8 +5,8 @@ import numpy as np
 from time import time
 from typing import List, Tuple, Union, Any
 
-import src
-from src.utils import tensor_idx, is_sorted, indices_to_pointers, \
+from ... import src
+from ..utils import tensor_idx, is_sorted, indices_to_pointers, \
     sizes_to_pointers, fast_repeat, save_tensor, load_tensor
 
 

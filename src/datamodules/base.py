@@ -3,9 +3,9 @@ import logging
 from pytorch_lightning import LightningDataModule
 from typing import Any, Dict, List, Tuple, Union
 
-from src.transforms import *
-from src.loader import DataLoader
-from src.data import NAGBatch
+from ..transforms import *
+from ..loader import DataLoader
+from ..data import NAGBatch
 
 
 log = logging.getLogger(__name__)
@@ -154,16 +154,17 @@ class BaseDataModule(LightningDataModule):
         However, do not use it to assign state (e.g. self.x = y) because
         it will not be preserved outside this scope.
         """
-        self.dataset_class(
-            self.hparams.data_dir, stage=self.train_stage,
-            transform=self.train_transform, pre_transform=self.pre_transform,
-            on_device_transform=self.on_device_train_transform, **self.kwargs)
+        # self.dataset_class(
+        #     self.hparams.data_dir, stage=self.train_stage,
+        #     transform=self.train_transform, pre_transform=self.pre_transform,
+        #     on_device_transform=self.on_device_train_transform, **self.kwargs)
+        #
+        # self.dataset_class(
+        #     self.hparams.data_dir, stage=self.val_stage,
+        #     transform=self.val_transform, pre_transform=self.pre_transform,
+        #     on_device_transform=self.on_device_val_transform, **self.kwargs)
 
-        self.dataset_class(
-            self.hparams.data_dir, stage=self.val_stage,
-            transform=self.val_transform, pre_transform=self.pre_transform,
-            on_device_transform=self.on_device_val_transform, **self.kwargs)
-
+        self.hparams.data_dir = self.pcd_root
         self.dataset_class(
             self.hparams.data_dir, stage='test',
             transform=self.test_transform, pre_transform=self.pre_transform,

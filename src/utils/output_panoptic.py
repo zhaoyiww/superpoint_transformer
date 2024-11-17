@@ -1,8 +1,8 @@
 import torch
 import logging
 from torch_scatter import scatter_mean
-from src.utils.scatter import scatter_mean_weighted
-from src.utils.output_semantic import SemanticSegmentationOutput
+from ..utils.scatter import scatter_mean_weighted
+from ..utils.output_semantic import SemanticSegmentationOutput
 
 
 log = logging.getLogger(__name__)
@@ -91,7 +91,7 @@ class PanopticSegmentationOutput(SemanticSegmentationOutput):
             return
 
         # Local import to avoid import loop errors
-        from src.data import InstanceData
+        from ..data import InstanceData
 
         assert isinstance(self.obj, InstanceData)
         assert self.obj.num_clusters == self.num_nodes
@@ -352,7 +352,7 @@ class PanopticSegmentationOutput(SemanticSegmentationOutput):
         # vox_index = self.obj_index_pred[super_index]
 
         # Local import to avoid import loop errors
-        from src.data import InstanceData
+        from ..data import InstanceData
 
         # Compute the superpoint-wise InstanceData carrying predictions
         sp_obj_pred = InstanceData(
@@ -410,7 +410,7 @@ class PanopticSegmentationOutput(SemanticSegmentationOutput):
         vox_index = self.obj_index_pred[super_index]
 
         # Local import to avoid import loop errors
-        from src.data import InstanceData
+        from ..data import InstanceData
 
         # Compute the voxel-wise InstanceData carrying voxel predictions
         # NB: we make an approximation here: each voxel is given a count
@@ -490,7 +490,7 @@ class PanopticSegmentationOutput(SemanticSegmentationOutput):
         raw_index = vox_index[super_index_raw_to_level0]
 
         # Local import to avoid import loop errors
-        from src.data import InstanceData
+        from ..data import InstanceData
 
         # Compute the voxel-wise InstanceData carrying voxel predictions
         # NB: we make an approximation here: each voxel is given a count

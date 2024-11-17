@@ -17,11 +17,11 @@ from torch_geometric.data.dataset import files_exist
 from torch_geometric.data.makedirs import makedirs
 from torch_geometric.data.dataset import _repr
 from torch_geometric.nn.pool.consecutive import consecutive_cluster
-
-from src.data import NAG
-from src.transforms import Transform, NAGSelectByKey, NAGRemoveKeys, \
+import shutil
+from ..data import NAG
+from ..transforms import Transform, NAGSelectByKey, NAGRemoveKeys, \
     SampleXYTiling, SampleRecursiveMainXYAxisTiling
-from src.visualization import show
+from ..visualization import show
 
 DIR = os.path.dirname(os.path.realpath(__file__))
 log = logging.getLogger(__name__)
@@ -213,6 +213,10 @@ class BaseDataset(InMemoryDataset):
         # the XY plane. Each step splits the data in 2, wrt to its
         # geometry. The value of pc_tiling indicates the number of split
         # steps used. Hence, 2**pc_tiling tiles will be created.
+
+        xy_tiling = None
+        self.xy_tiling = None
+
         assert xy_tiling is None or pc_tiling is None, \
             "Cannot apply both XY and PC tiling, please choose only one."
         if xy_tiling is None:
@@ -231,8 +235,12 @@ class BaseDataset(InMemoryDataset):
         self.check_cloud_ids()
 
         # Initialization with downloading and all preprocessing
-        root = osp.join(root, self.data_subdir_name)
-        super().__init__(root, transform, pre_transform, pre_filter)
+        # root = osp.join(root, self.data_subdir_name)
+        root_2 = osp.join(osp.dirname(osp.dirname(osp.dirname(root))), 'raw')
+        os.makedirs(root_2, exist_ok=True)
+        shutil.copy(root, root_2)
+
+        super().__init__(osp.dirname(root_2), transform, pre_transform, pre_filter)
 
         # Display the dataset pre_transform_hash and full path
         path = osp.join(self.processed_dir, "<stage>", self.pre_transform_hash)
@@ -671,23 +679,24 @@ class BaseDataset(InMemoryDataset):
         # necessary folders, to avoid duplicate preprocessing
         # computation
         hash_dir = self.pre_transform_hash
-        train_dir = osp.join(self.processed_dir, 'train', hash_dir)
-        val_dir = osp.join(self.processed_dir, 'val', hash_dir)
+        # train_dir = osp.join(self.processed_dir, 'train', hash_dir)
+        # val_dir = osp.join(self.processed_dir, 'val', hash_dir)
         test_dir = osp.join(self.processed_dir, 'test', hash_dir)
-        if not osp.exists(train_dir):
-            os.makedirs(train_dir, exist_ok=True)
-        if not osp.exists(val_dir):
-            if self.val_mixed_in_train:
-                os.makedirs(osp.dirname(val_dir), exist_ok=True)
-                os.symlink(train_dir, val_dir, target_is_directory=True)
-            else:
-                os.makedirs(val_dir, exist_ok=True)
+        # if not osp.exists(train_dir):
+        #     os.makedirs(train_dir, exist_ok=True)
+        # if not osp.exists(val_dir):
+        #     if self.val_mixed_in_train:
+        #         os.makedirs(osp.dirname(val_dir), exist_ok=True)
+        #         os.symlink(train_dir, val_dir, target_is_directory=True)
+        #     else:
+        #         os.makedirs(val_dir, exist_ok=True)
         if not osp.exists(test_dir):
-            if self.test_mixed_in_val:
-                os.makedirs(osp.dirname(test_dir), exist_ok=True)
-                os.symlink(val_dir, test_dir, target_is_directory=True)
-            else:
-                os.makedirs(test_dir, exist_ok=True)
+            # if self.test_mixed_in_val:
+            #     os.makedirs(osp.dirname(test_dir), exist_ok=True)
+            #     os.symlink(val_dir, test_dir, target_is_directory=True)
+            # else:
+            #     os.makedirs(test_dir, exist_ok=True)
+            os.makedirs(test_dir, exist_ok=True)
 
         # Process clouds one by one
         for p in tq(self.processed_paths):
@@ -706,7 +715,7 @@ class BaseDataset(InMemoryDataset):
 
         # Read the raw cloud corresponding to the final processed
         # `cloud_path` and convert it to a Data object
-        raw_path = self.processed_to_raw_path(cloud_path)
+        raw_path = self.processed_to_raw_path(cloud_path).replace('/test', '')
         data = self.sanitized_read_single_raw_cloud(raw_path)
 
         # If the cloud path indicates a tiling is needed, apply it here

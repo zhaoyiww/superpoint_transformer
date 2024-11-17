@@ -6,7 +6,7 @@ from torch_geometric.nn.aggr import MaxAggregation
 from torch_geometric.nn.aggr import MinAggregation
 from torch_scatter import scatter_sum
 from torch_geometric.utils import softmax
-from src.utils.nn import init_weights, LearnableParameter, build_qk_scale_func
+from ..utils.nn import init_weights, LearnableParameter, build_qk_scale_func
 
 
 __all__ = [

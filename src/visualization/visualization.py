@@ -2,11 +2,11 @@ import torch
 import numpy as np
 import os.path as osp
 import plotly.graph_objects as go
-from src.data import Data, NAG, Cluster
-from src.transforms import GridSampling3D, SaveNodeIndex
-from src.utils import fast_randperm, to_trimmed
+from ..data import Data, NAG, Cluster
+from ..transforms import GridSampling3D, SaveNodeIndex
+from ..utils import fast_randperm, to_trimmed
 from torch_scatter import scatter_mean
-from src.utils.color import *
+from ..utils.color import *
 
 
 # TODO: To go further with ipwidgets :

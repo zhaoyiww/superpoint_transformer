@@ -1,9 +1,9 @@
 import torch
-import src
-from src.dependencies.FRNN import frnn
+from ... import src
+from ..dependencies.FRNN import frnn
 from torch_scatter import scatter
 from torch_geometric.utils import coalesce
-from src.utils.scatter import scatter_nearest_neighbor
+from ..utils.scatter import scatter_nearest_neighbor
 
 
 __all__ = [
@@ -135,7 +135,7 @@ def knn_1_graph(
     # so costly, we first built on a coarse neighborhood edge_index to
     # alleviate compute and memory cost
     if trim:
-        from src.utils import to_trimmed
+        from ..utils import to_trimmed
         edge_index, distances = to_trimmed(
             edge_index, edge_attr=distances, reduce='min')
     # Coalesce edges to remove duplicates
@@ -470,7 +470,7 @@ def cluster_radius_nn_graph(
     # so costly, we first built on a coarse neighborhood edge_index to
     # alleviate compute and memory cost
     if trim:
-        from src.utils import to_trimmed
+        from ..utils import to_trimmed
         edge_index, distances = to_trimmed(
             edge_index, edge_attr=distances, reduce='min')
     # Coalesce edges to remove duplicates

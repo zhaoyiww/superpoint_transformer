@@ -1,6 +1,6 @@
 import torch
 import logging
-import src
+from ... import src
 
 log = logging.getLogger(__name__)
 

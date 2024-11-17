@@ -1,9 +1,9 @@
 from torch import nn
-from src.utils import listify_with_reference
-from src.nn import Stage, PointStage, DownNFuseStage, UpNFuseStage, \
+from ..utils import listify_with_reference
+from ..nn import Stage, PointStage, DownNFuseStage, UpNFuseStage, \
     BatchNorm, CatFusion, MLP, LayerNorm
-from src.nn.pool import BaseAttentivePool
-from src.nn.pool import pool_factory
+from ..nn.pool import BaseAttentivePool
+from ..nn.pool import pool_factory
 
 __all__ = ['SPT']
 

@@ -5,8 +5,8 @@ import socket
 import numpy as np
 from time import time
 from datetime import datetime
-from src.utils.tensor import tensor_idx, cast_numpyfy
-from src.utils.sparse import dense_to_csr, csr_to_dense
+from ..utils.tensor import tensor_idx, cast_numpyfy
+from ..utils.sparse import dense_to_csr, csr_to_dense
 
 
 __all__ = [

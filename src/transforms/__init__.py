@@ -11,7 +11,7 @@ from .geometry import *
 from .partition import *
 from .instance import *
 from .debug import *
-from src.data import Data
+from ..data import Data
 import torch_geometric.transforms as pygT
 from omegaconf import OmegaConf
 

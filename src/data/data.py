@@ -9,13 +9,13 @@ from torch_geometric.data import Data as PyGData
 from torch_geometric.data import Batch as PyGBatch
 from torch_geometric.nn.pool.consecutive import consecutive_cluster
 
-import src
-from src.data.cluster import CSRData
-from src.data.cluster import Cluster
-from src.data.instance import InstanceData
-from src.metrics import SemanticMetricResults, PanopticMetricResults, \
+from ... import src
+from ..data.cluster import CSRData
+from ..data.cluster import Cluster
+from ..data.instance import InstanceData
+from ..metrics import SemanticMetricResults, PanopticMetricResults, \
     InstanceMetricResults
-from src.utils import tensor_idx, is_dense, has_duplicates, \
+from ..utils import tensor_idx, is_dense, has_duplicates, \
     isolated_nodes, knn_2, save_tensor, load_tensor, save_tensor_dict, \
     load_tensor_dict, save_dense_to_csr, load_csr_to_dense, to_trimmed, \
     to_float_rgb, to_byte_rgb
@@ -891,7 +891,7 @@ class Data(PyGData):
         target = self.y
 
         # Performance evaluation
-        from src.metrics import ConfusionMatrix
+        from ..metrics import ConfusionMatrix
         cm = ConfusionMatrix(num_classes, *metric_args, **metric_kwargs)
         cm(pred.cpu(), target.cpu())
         metrics = cm.all_metrics()
@@ -965,7 +965,7 @@ class Data(PyGData):
     def show(self, **kwargs):
         """See `src.visualization.show`."""
         # Local import to avoid import loop errors
-        from src.visualization import show
+        from ..visualization import show
         return show(self, **kwargs)
 
 

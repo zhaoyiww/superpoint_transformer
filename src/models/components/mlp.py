@@ -1,7 +1,7 @@
 from torch_scatter import scatter
 from torch import nn
-from src.data import NAG
-from src.nn import MLP, BatchNorm
+from ..data import NAG
+from ..nn import MLP, BatchNorm
 
 
 __all__ = ['NodeMLP']

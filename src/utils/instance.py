@@ -12,12 +12,12 @@ import matplotlib.patches as patches
 import matplotlib.cm as cm
 from torch.nn.functional import one_hot
 from torch_geometric.nn.pool.consecutive import consecutive_cluster
-from src.utils.hydra import init_config
-from src.utils.neighbors import knn_2
-from src.utils.graph import to_trimmed
-from src.utils.cpu import available_cpu_count
-from src.utils.scatter import scatter_mean_weighted
-from src.utils.semantic import _set_attribute_preserving_transforms
+from ..utils.hydra import init_config
+from ..utils.neighbors import knn_2
+from ..utils.graph import to_trimmed
+from ..utils.cpu import available_cpu_count
+from ..utils.scatter import scatter_mean_weighted
+from ..utils.semantic import _set_attribute_preserving_transforms
 
 
 src_folder = osp.dirname(osp.dirname(osp.abspath(__file__)))
@@ -157,7 +157,7 @@ def generate_random_bbox_data(
     gt_y = torch.cat(gt_y)
     count = torch.ones_like(pred_idx)
 
-    from src.data.instance import InstanceData
+    from ..data.instance import InstanceData
     instance_data = InstanceData(pred_idx, gt_idx, count, gt_y, dense=True)
 
     return targets, preds, gt_idx, gt_y, count, instance_data
@@ -290,7 +290,7 @@ def generate_single_random_segment_image(
     gt_y = gt_label_image.flatten()
     count = torch.ones_like(pred_idx)
 
-    from src.data.instance import InstanceData
+    from ..data.instance import InstanceData
     instance_data = InstanceData(pred_idx, gt_idx, count, gt_y, dense=True)
     spt_data = (pred_scores, pred_labels, instance_data)
 
@@ -738,9 +738,9 @@ def oracle_superpoint_clustering(
     # TODO: maybe remove this function, redundant with grid_search_panoptic_partition
 
     # Local import to avoid import loop errors
-    from src.transforms import OnTheFlyInstanceGraph
-    from src.models.panoptic import PanopticSegmentationOutput
-    from src.metrics import PanopticQuality3D
+    from ..transforms import OnTheFlyInstanceGraph
+    from ..models.panoptic import PanopticSegmentationOutput
+    from ..metrics import PanopticQuality3D
 
     # Instance graph computation
     graph_kwargs = {} if graph_kwargs is None else graph_kwargs
@@ -864,7 +864,7 @@ def compute_panoptic_metrics(
     instance graph and partition parameters.
     """
     # Local imports to avoid import loop errors
-    from src.data import NAGBatch
+    from ..data import NAGBatch
 
     # Pick among train, val, and test datasets. It is important to note that
     # the train dataset produces augmented spherical samples of large
@@ -965,7 +965,7 @@ def compute_panoptic_metrics_s3dis_6fold(
     :return:
     """
     # Local import to avoid import loop errors
-    from src.metrics import PanopticQuality3D, MeanAveragePrecision3D, \
+    from ..metrics import PanopticQuality3D, MeanAveragePrecision3D, \
         ConfusionMatrix
 
     # Very ugly fix to ignore lightning's warning messages about the
@@ -1079,7 +1079,7 @@ def _set_graph_construction_parameters(dataset, graph_kwargs):
         return dataset
 
     # Local imports to avoid import loop errors
-    from src.transforms import OnTheFlyInstanceGraph
+    from ..transforms import OnTheFlyInstanceGraph
 
     # Search for the `OnTheFlyInstanceGraph` instance graph construction
     # transform among the on-device transforms
@@ -1123,7 +1123,7 @@ def _forward_multi_partition(
     same input data, based on diverse partition parameter settings.
     """
     # Local import to avoid import loop errors
-    from src.models.panoptic import PanopticSegmentationOutput
+    from ..models.panoptic import PanopticSegmentationOutput
 
     # Make sure each element of `partition_kwargs` is a list,
     # to facilitate computing Cartesian product of the lists for
@@ -1290,7 +1290,7 @@ def grid_search_panoptic_partition(
     # TODO: grid search on the whole dataset rather than a single cloud
 
     # Local import to avoid import loop errors
-    from src.metrics import PanopticQuality3D, MeanAveragePrecision3D
+    from ..metrics import PanopticQuality3D, MeanAveragePrecision3D
 
     assert panoptic or instance, \
         "At least 'panoptic' or 'instance' must be True"

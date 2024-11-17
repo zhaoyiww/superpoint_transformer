@@ -9,12 +9,12 @@ import os.path as osp
 from typing import List
 from torch_geometric.data import extract_zip
 
-from src.datasets import BaseDataset
-from src.data import Data, Batch, InstanceData, CSRBatch
-from src.datasets.s3dis_config import *
-from src.utils import available_cpu_count, starmap_with_kwargs, \
+from ..datasets import BaseDataset
+from ..data import Data, Batch, InstanceData, CSRBatch
+from ..datasets.s3dis_config import *
+from ..utils import available_cpu_count, starmap_with_kwargs, \
     rodrigues_rotation_matrix, to_float_rgb
-from src.transforms import RoomPosition
+from ..transforms import RoomPosition
 
 
 DIR = osp.dirname(osp.realpath(__file__))

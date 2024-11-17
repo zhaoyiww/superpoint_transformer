@@ -3,13 +3,13 @@ import math
 from torch_scatter import scatter_min, scatter_max, scatter_mean
 from torch_geometric.utils import coalesce, remove_self_loops
 from torch_geometric.nn.pool.consecutive import consecutive_cluster
-from src.utils.tensor import arange_interleave
-from src.utils.geometry import base_vectors_3d
-from src.utils.sparse import sizes_to_pointers, sparse_sort, \
+from ..utils.tensor import arange_interleave
+from ..utils.geometry import base_vectors_3d
+from ..utils.sparse import sizes_to_pointers, sparse_sort, \
     sparse_sort_along_direction
-from src.utils.scatter import scatter_pca, scatter_nearest_neighbor, \
+from ..utils.scatter import scatter_pca, scatter_nearest_neighbor, \
     idx_preserving_mask
-from src.utils.edge import edge_wise_points
+from ..utils.edge import edge_wise_points
 
 __all__ = [
     'is_pyg_edge_format', 'isolated_nodes', 'edge_to_superedge', 'subedges',
