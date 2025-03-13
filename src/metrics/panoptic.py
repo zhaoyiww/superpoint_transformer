@@ -5,8 +5,8 @@ from torch import Tensor, LongTensor
 from typing import Any, List, Optional, Sequence
 from torchmetrics.metric import Metric
 from torch_geometric.nn.pool.consecutive import consecutive_cluster
-from src.data import InstanceData, InstanceBatch
-from src.metrics.mean_average_precision import BaseMetricResults
+from ..data import InstanceData, InstanceBatch
+from ..metrics.mean_average_precision import BaseMetricResults
 
 
 log = logging.getLogger(__name__)

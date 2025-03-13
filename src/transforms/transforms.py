@@ -1,7 +1,7 @@
 from typing import Union, List
 from torch_geometric.transforms import BaseTransform
 
-from src.data import Data
+from ..data import Data
 
 
 __all__ = ['Transform']

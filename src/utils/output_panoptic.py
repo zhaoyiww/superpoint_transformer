@@ -1,8 +1,8 @@
 import torch
 import logging
 from torch_scatter import scatter_mean
-from src.utils.scatter import scatter_mean_weighted
-from src.utils.output_semantic import SemanticSegmentationOutput
+from ..utils.scatter import scatter_mean_weighted
+from ..utils.output_semantic import SemanticSegmentationOutput
 
 
 log = logging.getLogger(__name__)

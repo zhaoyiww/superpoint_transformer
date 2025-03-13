@@ -65,8 +65,8 @@ TILES = {
     ],
 
     'test': [
-        'source_tile_0',
-        'target_tile_0',
+        'source_tile_0_overlap',
+        'target_tile_0_overlap',
         # '5080_54470_new',
         # '5100_54440_new',
         # '5140_54390_new',

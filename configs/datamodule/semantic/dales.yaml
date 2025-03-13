@@ -2,7 +2,8 @@
 defaults:
   - /datamodule/semantic/default.yaml
 
-_target_: src.datamodules.dales.DALESDataModule
+# to-do
+_target_: superpoint_transformer.src.datamodules.dales.DALESDataModule
 
 # These parameters are not actually used by the DataModule, but are used
 # here to facilitate model parameterization with config interpolation
@@ -61,19 +62,22 @@ v_edge_hf: []  # vertical edge features used for training
 
 # Parameters declared here to facilitate tuning configs without copying
 # all the pre_transforms
-voxel: 0.1
-knn: 25
+# to-do
+voxel: 0.1 # default 0.1,
+# CutPursuitPartition
+knn: 30    # default 25, searches for the k nearest neighbors of each point, within a maximum radius of r_max
 knn_r: 10
 knn_step: -1
-knn_min_search: 10
+knn_min_search: 20 # default 10, Minimum neighborhood size used when searching the optimal neighborhood size, for computing the point features
 ground_threshold: 5
 ground_scale: 20
-pcp_regularization: [0.1, 0.2, 0.3]
+pcp_regularization: [0.2, 0.2, 0.3] # default [0.1, 0.2, 0.3]
 pcp_spatial_weight: [1e-1, 1e-2, 1e-3]
-pcp_cutoff: [10, 30, 100]
-pcp_k_adjacency: 10
+pcp_cutoff: [10, 30, 100] # Minimum number of points in each superpoint. The output partition will not contain any superpoint smaller than `cutoff`
+pcp_k_adjacency: 10 # When a node is isolated after a partition, we connect it to the nearest nodes. This rules the number of neighbors it should be connected to
 pcp_w_adjacency: 1
 pcp_iterations: 15
+# RadiusHorizontalGraph
 graph_k_min: 1
 graph_k_max: 30
 graph_gap: [5, 30, 30]

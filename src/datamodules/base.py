@@ -3,9 +3,9 @@ import logging
 from pytorch_lightning import LightningDataModule
 from typing import Any, Dict, List, Tuple, Union
 
-from src.transforms import *
-from src.loader import DataLoader
-from src.data import NAGBatch
+from ..transforms import *
+from ..loader import DataLoader
+from ..data import NAGBatch
 
 
 log = logging.getLogger(__name__)

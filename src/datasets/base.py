@@ -18,10 +18,10 @@ from torch_geometric.data.makedirs import makedirs
 from torch_geometric.data.dataset import _repr
 from torch_geometric.nn.pool.consecutive import consecutive_cluster
 
-from src.data import NAG
-from src.transforms import Transform, NAGSelectByKey, NAGRemoveKeys, \
+from ..data import NAG
+from ..transforms import Transform, NAGSelectByKey, NAGRemoveKeys, \
     SampleXYTiling, SampleRecursiveMainXYAxisTiling
-from src.visualization import show
+from ..visualization import show
 
 DIR = os.path.dirname(os.path.realpath(__file__))
 log = logging.getLogger(__name__)
@@ -251,8 +251,8 @@ class BaseDataset(InMemoryDataset):
 
         # Display the dataset pre_transform_hash and full path
         path = osp.join(self.processed_dir, "<stage>", self.pre_transform_hash)
-        log.info(f'Dataset hash: "{self.pre_transform_hash}"')
-        log.info(f'Preprocessed data can be found at: "{path}"')
+        # log.info(f'Dataset hash: "{self.pre_transform_hash}"')
+        # log.info(f'Preprocessed data can be found at: "{path}"')
 
         # If `val_mixed_in_train` or `test_mixed_in_val`, we will need
         # to separate some stage-related data at reading time.
@@ -629,9 +629,10 @@ class BaseDataset(InMemoryDataset):
         return path
 
     def download(self) -> None:
-        self.download_warning()
+        # self.download_warning()
         # to-do
         # self.download_dataset()
+        return None
 
     def download_dataset(self) -> None:
         """Download the dataset data. Modify this method to implement
@@ -670,8 +671,9 @@ class BaseDataset(InMemoryDataset):
                 "make use of another pre-filtering technique, make sure to "
                 "delete '{self.processed_dir}' first")
 
-        if files_exist(self.processed_paths):  # pragma: no cover
-            return
+        # to-do
+        # if files_exist(self.processed_paths):  # pragma: no cover
+        #     return
 
         # if self.log and 'pytest' not in sys.modules:
         #     # to-do
@@ -714,7 +716,9 @@ class BaseDataset(InMemoryDataset):
             os.makedirs(test_dir, exist_ok=True)
 
         # Process clouds one by one
-        for p in tq(self.processed_paths):
+        # to-do
+        # for p in tq(self.processed_paths):
+        for p in self.processed_paths:
             self._process_single_cloud(p)
 
     def _process_single_cloud(self, cloud_path: str) -> None:
@@ -722,8 +726,9 @@ class BaseDataset(InMemoryDataset):
         single cloud of 3D points.
         """
         # If required files exist, skip processing
-        if osp.exists(cloud_path):
-            return
+        # to-do
+        # if osp.exists(cloud_path):
+        #     return
 
         # Create necessary parent folders if need be
         # to-do
@@ -734,7 +739,7 @@ class BaseDataset(InMemoryDataset):
         # to-do
         # raw_path = self.processed_to_raw_path(cloud_path)
         raw_path = self.processed_to_raw_path(cloud_path).replace('raw/test', self.config.file_folder)
-        raw_path = osp.join(osp.dirname(raw_path), osp.basename(raw_path).split('_')[0] + f'_tile_{self.config.tile_id}.ply')
+        raw_path = osp.join(osp.dirname(raw_path), osp.basename(raw_path).split('_')[0] + f'_tile_{self.config.tile_id}_overlap.ply')
         data = self.sanitized_read_single_raw_cloud(raw_path)
         # to-do
 

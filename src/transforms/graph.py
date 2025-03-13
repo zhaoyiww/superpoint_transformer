@@ -4,11 +4,11 @@ import itertools
 from scipy.spatial import Delaunay
 from torch_scatter import scatter_mean, scatter_std
 from torch_geometric.utils import add_self_loops
-from src.transforms import Transform
-import src
-from src.data import NAG
+from ..transforms import Transform
+import superpoint_transformer.src as src
+from ..data import NAG
 import pgeof
-from src.utils import print_tensor_info, isolated_nodes, edge_to_superedge, \
+from ..utils import print_tensor_info, isolated_nodes, edge_to_superedge, \
     subedges, to_trimmed, cluster_radius_nn_graph, is_trimmed, \
     base_vectors_3d, scatter_mean_orientation, POINT_FEATURES, \
     SEGMENT_BASE_FEATURES, SUBEDGE_FEATURES, ON_THE_FLY_HORIZONTAL_FEATURES, \

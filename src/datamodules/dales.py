@@ -1,6 +1,6 @@
 import logging
-from src.datamodules.base import BaseDataModule
-from src.datasets import DALES, MiniDALES
+from ..datamodules.base import BaseDataModule
+from ..datasets import DALES, MiniDALES
 
 
 log = logging.getLogger(__name__)

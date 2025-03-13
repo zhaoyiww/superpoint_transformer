@@ -1,7 +1,7 @@
 import torch
-from src.data import Data, NAG, CSRData
-from src.transforms import Transform
-from src.utils import tensor_idx, to_float_rgb, to_byte_rgb, dropout, \
+from ..data import Data, NAG, CSRData
+from ..transforms import Transform
+from ..utils import tensor_idx, to_float_rgb, to_byte_rgb, dropout, \
     sanitize_keys
 
 

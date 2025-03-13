@@ -1,6 +1,6 @@
 import torch
-import src
-from src.utils.tensor import is_dense, is_sorted, fast_repeat, tensor_idx, \
+import superpoint_transformer.src as src
+from ..utils.tensor import is_dense, is_sorted, fast_repeat, tensor_idx, \
     arange_interleave, fast_randperm
 from torch_scatter import scatter_mean
 

@@ -1,5 +1,5 @@
 from torch import nn
-from src.nn import SelfAttentionBlock, FFN, DropPath, LayerNorm, \
+from ..nn import SelfAttentionBlock, FFN, DropPath, LayerNorm, \
     INDEX_BASED_NORMS
 
 

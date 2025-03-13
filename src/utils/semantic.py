@@ -4,7 +4,7 @@ import torch
 import os.path as osp
 from tqdm import tqdm
 from copy import deepcopy
-from src.utils.hydra import init_config
+from ..utils.hydra import init_config
 
 
 src_folder = osp.dirname(osp.dirname(osp.abspath(__file__)))

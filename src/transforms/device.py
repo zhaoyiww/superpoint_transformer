@@ -1,6 +1,6 @@
 import torch
-from src.transforms import Transform
-from src.data import NAG
+from ..transforms import Transform
+from ..data import NAG
 
 
 __all__ = ['DataTo', 'NAGTo']

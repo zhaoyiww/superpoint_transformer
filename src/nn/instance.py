@@ -1,7 +1,7 @@
 from torch import nn
 from copy import copy
 from itertools import product
-from src.utils.instance import instance_cut_pursuit
+from ..utils.instance import instance_cut_pursuit
 
 
 __all__ = ['InstancePartitioner']

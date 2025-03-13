@@ -12,12 +12,12 @@ import matplotlib.patches as patches
 import matplotlib.cm as cm
 from torch.nn.functional import one_hot
 from torch_geometric.nn.pool.consecutive import consecutive_cluster
-from src.utils.hydra import init_config
-from src.utils.neighbors import knn_2
-from src.utils.graph import to_trimmed
-from src.utils.cpu import available_cpu_count
-from src.utils.scatter import scatter_mean_weighted
-from src.utils.semantic import _set_attribute_preserving_transforms
+from ..utils.hydra import init_config
+from ..utils.neighbors import knn_2
+from ..utils.graph import to_trimmed
+from ..utils.cpu import available_cpu_count
+from ..utils.scatter import scatter_mean_weighted
+from ..utils.semantic import _set_attribute_preserving_transforms
 
 
 src_folder = osp.dirname(osp.dirname(osp.abspath(__file__)))

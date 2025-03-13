@@ -4,7 +4,7 @@ import torch
 import numpy as np
 import os.path as osp
 from plyfile import PlyData
-from src.utils.color import to_float_rgb
+from ..utils.color import to_float_rgb
 
 
 __all__ = ['read_one_scan', 'read_one_test_scan']

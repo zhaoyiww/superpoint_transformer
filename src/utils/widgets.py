@@ -2,7 +2,7 @@ import torch
 import ipywidgets as widgets
 from ipyfilechooser import FileChooser
 from IPython.display import display
-from src.utils.configs import get_config_structure
+from ..utils.configs import get_config_structure
 
 
 __all__ = [

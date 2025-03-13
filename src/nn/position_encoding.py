@@ -1,9 +1,9 @@
 import numpy as np
 import torch
 import torch.nn as nn
-from src.utils import fourier_position_encoder
-from src.nn.fusion import fusion_factory
-from src.nn.mlp import FFN
+from ..utils import fourier_position_encoder
+from ..nn.fusion import fusion_factory
+from ..nn.mlp import FFN
 
 
 __all__ = [

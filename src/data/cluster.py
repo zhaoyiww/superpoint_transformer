@@ -5,8 +5,8 @@ from time import time
 from typing import List, Tuple, Union
 from torch_geometric.nn.pool.consecutive import consecutive_cluster
 
-from src.data.csr import CSRData, CSRBatch
-from src.utils import has_duplicates, tensor_idx, load_tensor
+from ..data.csr import CSRData, CSRBatch
+from ..utils import has_duplicates, tensor_idx, load_tensor
 
 
 __all__ = ['Cluster', 'ClusterBatch']

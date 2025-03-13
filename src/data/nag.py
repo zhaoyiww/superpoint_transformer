@@ -6,9 +6,9 @@ from typing import Dict, List, Tuple, Union, Any
 from torch_geometric.nn.pool.consecutive import consecutive_cluster
 from torch_scatter import scatter_sum
 
-import src
-from src.data import Data, Batch
-from src.utils import tensor_idx, has_duplicates, sparse_sample
+import superpoint_transformer.src as src
+from ..data import Data, Batch
+from ..utils import tensor_idx, has_duplicates, sparse_sample
 
 
 __all__ = ['NAG', 'NAGBatch']

@@ -1,4 +1,5 @@
 # ---------------------------------------------------------------------------- #
+# modified from official superpoint_transformer/notebooks/superpoint_transformer_tutorial.ipynb
 # just run once, end-to-end to get the three levels of superpoint partition results
 # input root, config file
 # processing mattertal ROIs as an example
@@ -7,9 +8,7 @@
 import hydra
 from src.utils import init_config
 from easydict import EasyDict as edict
-from src.transforms import *
-import shutil
-from tqdm import tqdm
+from src.transforms.data import NAGAddKeysTo
 import os
 import os.path as osp
 import numpy as np
@@ -86,15 +85,6 @@ datamodule.setup(config)
 # the train dataset produces augmented spherical samples of large
 # scenes, while the val and test dataset load entire tiles at once
 dataset = datamodule.test_dataset
-# print(dataset)
-# Print a summary of the datasets' classes
-# dataset.print_classes()
-
-# # Instantiate the model
-# model = hydra.utils.instantiate(cfg.model)
-# # print(model)
-# # Move model to selected device
-# model = model.eval().to(device_widget)
 
 # For the sake of visualization, we require that NAGAddKeysTo does not
 # remove input Data attributes after moving them to Data.x, so we may
@@ -102,7 +92,6 @@ dataset = datamodule.test_dataset
 for t in dataset.on_device_transform.transforms:
     if isinstance(t, NAGAddKeysTo):
         t.delete_after = False
-
 
 # Load the first dataset item. This will return the hierarchical
 # partition of an entire tile, as a NAG object

@@ -1,12 +1,12 @@
 import torch
 import numpy as np
 import pgeof
-from src.utils import rgb2hsv, rgb2lab, sizes_to_pointers, to_float_rgb, \
+from ..utils import rgb2hsv, rgb2lab, sizes_to_pointers, to_float_rgb, \
     POINT_FEATURES, sanitize_keys, filter_by_z_distance_of_global_min, \
     filter_by_local_z_min, filter_by_verticality, single_plane_model, \
     neighbor_interpolation_model, mlp_model
-from src.transforms import Transform
-from src.data import NAG
+from ..transforms import Transform
+from ..data import NAG
 
 
 __all__ = [

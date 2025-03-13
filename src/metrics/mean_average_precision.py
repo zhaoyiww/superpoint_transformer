@@ -7,8 +7,8 @@ from typing import Any, Dict, List, Optional, Sequence, Tuple
 from torchmetrics.detection.mean_ap import MeanAveragePrecision
 from torchmetrics.utilities.imports import _TORCHVISION_GREATER_EQUAL_0_8
 from torch_geometric.nn.pool.consecutive import consecutive_cluster
-from src.data import InstanceData, InstanceBatch
-from src.utils import arange_interleave, sizes_to_pointers
+from ..data import InstanceData, InstanceBatch
+from ..utils import arange_interleave, sizes_to_pointers
 
 
 log = logging.getLogger(__name__)

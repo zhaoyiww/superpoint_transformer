@@ -4,10 +4,10 @@ import os.path as osp
 import torch
 import numpy as np
 from torch_scatter import scatter_sum, scatter_mean
-from src.transforms import Transform
-from src.data import Data, NAG, Cluster, InstanceData
-from src.utils.cpu import available_cpu_count
-from src.utils import xy_partition
+from ..transforms import Transform
+from ..data import Data, NAG, Cluster, InstanceData
+from ..utils.cpu import available_cpu_count
+from ..utils import xy_partition
 
 dependencies_folder = osp.dirname(osp.dirname(osp.abspath(__file__)))
 sys.path.append(dependencies_folder)

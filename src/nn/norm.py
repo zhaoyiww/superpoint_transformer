@@ -1,7 +1,7 @@
 import torch
 from torch import nn
 from torch_scatter import scatter
-from src.utils import scatter_mean_weighted
+from ..utils import scatter_mean_weighted
 from torch_geometric.nn.norm import LayerNorm, InstanceNorm, GraphNorm
 from torch_geometric.nn.inits import ones, zeros
 from torch_geometric.utils import degree

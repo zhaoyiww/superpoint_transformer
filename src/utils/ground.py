@@ -5,9 +5,9 @@ import torch.nn.functional as F
 import matplotlib.pyplot as plt
 from sklearn.linear_model import RANSACRegressor
 from torch_scatter import scatter_min
-from src.utils.partition import xy_partition
-from src.utils.point import is_xyz_tensor
-from src.utils.neighbors import knn_2
+from ..utils.partition import xy_partition
+from ..utils.point import is_xyz_tensor
+from ..utils.neighbors import knn_2
 
 
 

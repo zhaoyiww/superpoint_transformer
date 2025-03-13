@@ -1,6 +1,6 @@
 import torch
 from torch import nn
-from src.utils.parameter import LearnableParameter
+from ..utils.parameter import LearnableParameter
 
 
 __all__ = ['init_weights']

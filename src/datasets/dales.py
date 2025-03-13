@@ -9,9 +9,9 @@ from typing import List
 from torch_geometric.nn.pool.consecutive import consecutive_cluster
 from torch_geometric.data import extract_tar
 
-from src.datasets import BaseDataset
-from src.data import Data, InstanceData
-from src.datasets.dales_config import *
+from ..datasets import BaseDataset
+from ..data import Data, InstanceData
+from ..datasets.dales_config import *
 
 
 DIR = os.path.dirname(os.path.realpath(__file__))

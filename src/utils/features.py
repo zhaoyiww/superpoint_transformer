@@ -1,5 +1,5 @@
 import torch
-from src.utils.color import to_float_rgb
+from ..utils.color import to_float_rgb
 
 
 __all__ = ['rgb2hsv', 'rgb2lab']

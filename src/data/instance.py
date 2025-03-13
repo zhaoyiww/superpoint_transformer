@@ -5,8 +5,8 @@ from typing import List, Tuple, Union
 from torch_geometric.nn.pool.consecutive import consecutive_cluster
 from torch_scatter import scatter_max, scatter_sum
 
-from src.data.csr import CSRData, CSRBatch
-from src.utils import tensor_idx, is_dense, has_duplicates, to_trimmed
+from ..data.csr import CSRData, CSRBatch
+from ..utils import tensor_idx, is_dense, has_duplicates, to_trimmed
 
 
 __all__ = ['InstanceData', 'InstanceBatch']
