@@ -3,9 +3,9 @@ import logging
 from pytorch_lightning import LightningDataModule
 from typing import Any, Dict, List, Tuple, Union
 
-from ..transforms import *
-from ..loader import DataLoader
-from ..data import NAGBatch
+from src.transforms import *
+from src.loader import DataLoader
+from src.data import NAGBatch
 
 
 log = logging.getLogger(__name__)
@@ -147,13 +147,15 @@ class BaseDataModule(LightningDataModule):
         """
         return 'test' if self.hparams.val_on_test else 'val'
 
-    def prepare_data(self) -> None:
+    def prepare_data(self, config) -> None:
         """Download and heavy preprocessing of data should be triggered
         here.
 
         However, do not use it to assign state (e.g. self.x = y) because
         it will not be preserved outside this scope.
         """
+        #############
+        # to-do
         # self.dataset_class(
         #     self.hparams.data_dir, stage=self.train_stage,
         #     transform=self.train_transform, pre_transform=self.pre_transform,
@@ -163,14 +165,14 @@ class BaseDataModule(LightningDataModule):
         #     self.hparams.data_dir, stage=self.val_stage,
         #     transform=self.val_transform, pre_transform=self.pre_transform,
         #     on_device_transform=self.on_device_val_transform, **self.kwargs)
+        #############
 
-        self.hparams.data_dir = self.pcd_root
         self.dataset_class(
             self.hparams.data_dir, stage='test',
             transform=self.test_transform, pre_transform=self.pre_transform,
-            on_device_transform=self.on_device_test_transform, **self.kwargs)
+            on_device_transform=self.on_device_test_transform, config=config, **self.kwargs)
 
-    def setup(self, stage=None) -> None:
+    def setup(self, config, stage=None) -> None:
         """Load data. Set variables: `self.train_dataset`,
         `self.val_dataset`, `self.test_dataset`.
 
@@ -178,20 +180,21 @@ class BaseDataModule(LightningDataModule):
         and `trainer.test()`, so be careful not to execute things like
         random split twice!
         """
-        self.train_dataset = self.dataset_class(
-            self.hparams.data_dir, stage=self.train_stage,
-            transform=self.train_transform, pre_transform=self.pre_transform,
-            on_device_transform=self.on_device_train_transform, **self.kwargs)
-
-        self.val_dataset = self.dataset_class(
-            self.hparams.data_dir, stage=self.val_stage,
-            transform=self.val_transform, pre_transform=self.pre_transform,
-            on_device_transform=self.on_device_val_transform, **self.kwargs)
+        # to-do
+        # self.train_dataset = self.dataset_class(
+        #     self.hparams.data_dir, stage=self.train_stage,
+        #     transform=self.train_transform, pre_transform=self.pre_transform,
+        #     on_device_transform=self.on_device_train_transform, **self.kwargs)
+        #
+        # self.val_dataset = self.dataset_class(
+        #     self.hparams.data_dir, stage=self.val_stage,
+        #     transform=self.val_transform, pre_transform=self.pre_transform,
+        #     on_device_transform=self.on_device_val_transform, **self.kwargs)
 
         self.test_dataset = self.dataset_class(
             self.hparams.data_dir, stage='test',
             transform=self.test_transform, pre_transform=self.pre_transform,
-            on_device_transform=self.on_device_test_transform, **self.kwargs)
+            on_device_transform=self.on_device_test_transform, config=config, **self.kwargs)
 
     def set_transforms(self) -> None:
         """Parse in self.hparams in search for '*transform*' keys and

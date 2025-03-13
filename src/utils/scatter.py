@@ -2,7 +2,7 @@ import math
 import torch
 from torch_scatter import scatter_add, scatter_mean, scatter_min
 from itertools import combinations_with_replacement
-from ..utils.edge import edge_wise_points
+from src.utils.edge import edge_wise_points
 from torch_geometric.utils import coalesce
 
 

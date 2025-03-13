@@ -5,13 +5,13 @@ from torchmetrics import MaxMetric, MeanMetric
 from torchmetrics.classification import BinaryAccuracy, BinaryF1Score
 from torch_geometric.nn.pool.consecutive import consecutive_cluster
 
-from ..utils import init_weights, PanopticSegmentationOutput, \
+from src.utils import init_weights, PanopticSegmentationOutput, \
     PartitionParameterSearchStorage
-from ..metrics import MeanAveragePrecision3D, PanopticQuality3D, \
+from src.metrics import MeanAveragePrecision3D, PanopticQuality3D, \
     ConfusionMatrix
-from ..models.semantic import SemanticSegmentationModule
-from ..loss import BCEWithLogitsLoss
-from ..data import NAG
+from src.models.semantic import SemanticSegmentationModule
+from src.loss import BCEWithLogitsLoss
+from src.data import NAG
 
 
 log = logging.getLogger(__name__)

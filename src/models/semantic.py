@@ -9,15 +9,15 @@ from pytorch_lightning import LightningModule
 from torchmetrics import MaxMetric, MeanMetric
 from pytorch_lightning.loggers.wandb import WandbLogger
 
-from ..metrics import ConfusionMatrix
-from ..utils import loss_with_target_histogram, atomic_to_histogram, \
+from src.metrics import ConfusionMatrix
+from src.utils import loss_with_target_histogram, atomic_to_histogram, \
     init_weights, wandb_confusion_matrix, knn_2, garbage_collection_cuda, \
     SemanticSegmentationOutput
-from ..nn import Classifier
-from ..loss import MultiLoss
-from ..optim.lr_scheduler import ON_PLATEAU_SCHEDULERS
-from ..data import NAG
-from ..transforms import Transform, NAGSaveNodeIndex
+from src.nn import Classifier
+from src.loss import MultiLoss
+from src.optim.lr_scheduler import ON_PLATEAU_SCHEDULERS
+from src.data import NAG
+from src.transforms import Transform, NAGSaveNodeIndex
 
 log = logging.getLogger(__name__)
 

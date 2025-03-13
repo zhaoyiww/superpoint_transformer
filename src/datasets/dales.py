@@ -9,9 +9,9 @@ from typing import List
 from torch_geometric.nn.pool.consecutive import consecutive_cluster
 from torch_geometric.data import extract_tar
 
-from ..datasets import BaseDataset
-from ..data import Data, InstanceData
-from ..datasets.dales_config import *
+from src.datasets import BaseDataset
+from src.data import Data, InstanceData
+from src.datasets.dales_config import *
 
 
 DIR = os.path.dirname(os.path.realpath(__file__))
@@ -57,11 +57,16 @@ def read_dales_tile(
         to their train ID.
     """
     data = Data()
-    # key = 'testing'
+    #############
+    # to-do
     key = 'vertex'
+    # key = 'testing'
+    #############
+
     with open(filepath, "rb") as f:
         tile = PlyData.read(f)
 
+        # to-do
         # if xyz:
         #     pos = torch.stack([
         #         torch.FloatTensor(tile[key][axis])
@@ -83,7 +88,9 @@ def read_dales_tile(
             # data.intensity = torch.FloatTensor(
             #     tile[key]['intensity']).clip(min=0, max=60000) / 60000
 
-            # use RGB values to compute grayscale values for intensity
+            #############
+            # to-do
+            # use grayscaled rgb instead of lidar intensity
             vertex_properties = tile['vertex'].properties
             property_names = [prop.name for prop in vertex_properties]
             if 'red' in property_names:
@@ -98,6 +105,7 @@ def read_dales_tile(
                 data.intensity = torch.FloatTensor(
                     tile[key]['intensity'])
                 data.intensity = (data.intensity - data.intensity.min()) / (data.intensity.max() - data.intensity.min())
+            #############
 
         if semantic:
             y = torch.LongTensor(tile[key]['sem_class'])
@@ -225,9 +233,10 @@ class DALES(BaseDataset):
             sys.exit(1)
 
         # Unzip the file and rename it into the `root/raw/` directory
-        extract_tar(osp.join(self.root, self._zip_name), self.root)
-        shutil.rmtree(self.raw_dir)
-        os.rename(osp.join(self.root, self._unzip_name), self.raw_dir)
+        # to-do
+        # extract_tar(osp.join(self.root, self._zip_name), self.root)
+        # shutil.rmtree(self.raw_dir)
+        # os.rename(osp.join(self.root, self._unzip_name), self.raw_dir)
 
     def read_single_raw_cloud(self, raw_cloud_path: str) -> 'Data':
         """Read a single raw cloud and return a `Data` object, ready to
@@ -246,6 +255,7 @@ class DALES(BaseDataset):
         while `y < 0` AND `y >= self.num_classes` ARE VOID LABELS.
         This applies to both `Data.y` and `Data.obj.y`.
         """
+        # to-do
         return read_dales_tile(
             raw_cloud_path, intensity=True, semantic=False, instance=False,
             remap=True)

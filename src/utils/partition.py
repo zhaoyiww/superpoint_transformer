@@ -1,5 +1,5 @@
 from torch_geometric.nn.pool.consecutive import consecutive_cluster
-from ..utils.point import is_xyz_tensor
+from src.utils.point import is_xyz_tensor
 
 
 __all__ = ['xy_partition']

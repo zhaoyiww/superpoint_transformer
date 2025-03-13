@@ -5,9 +5,9 @@ import torch.nn.functional as F
 import matplotlib.pyplot as plt
 from sklearn.linear_model import RANSACRegressor
 from torch_scatter import scatter_min
-from ..utils.partition import xy_partition
-from ..utils.point import is_xyz_tensor
-from ..utils.neighbors import knn_2
+from src.utils.partition import xy_partition
+from src.utils.point import is_xyz_tensor
+from src.utils.neighbors import knn_2
 
 
 
@@ -242,8 +242,8 @@ def mlp_model(
     :return:
     """
     # Local imports to avoid import loop errors
-    from ..nn import MLP
-    from ..nn.norm import BatchNorm
+    from src.nn import MLP
+    from src.nn.norm import BatchNorm
 
     assert is_xyz_tensor(pos)
 

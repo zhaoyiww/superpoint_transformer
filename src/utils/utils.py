@@ -10,7 +10,7 @@ from pytorch_lightning import Callback
 from pytorch_lightning.loggers import Logger
 from pytorch_lightning.utilities import rank_zero_only
 
-from ..utils import pylogger, rich_utils
+from src.utils import pylogger, rich_utils
 
 
 __all__ = [

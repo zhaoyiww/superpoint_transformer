@@ -2,11 +2,14 @@ import torch
 import numpy as np
 import os.path as osp
 import plotly.graph_objects as go
-from ..data import Data, NAG, Cluster
-from ..transforms import GridSampling3D, SaveNodeIndex
-from ..utils import fast_randperm, to_trimmed
+from src.data import Data, NAG, Cluster
+from src.transforms import GridSampling3D, SaveNodeIndex
+from src.utils import fast_randperm, to_trimmed
 from torch_scatter import scatter_mean
-from ..utils.color import *
+from src.utils.color import *
+# to-do
+import glob
+import os
 
 
 # TODO: To go further with ipwidgets :
@@ -1099,29 +1102,38 @@ def show(input, path=None, title=None, no_output=True, pt_path=None, **kwargs):
 
     # Draw a figure for 3D data visualization
     out_3d = visualize_3d(input, **kwargs)
-    if no_output:
-        if path is None:
-            out_3d['figure'].show(config={'displayModeBar': False})
-        else:
-            fig_html += figure_html(out_3d['figure'])
-
-    if path is not None:
-        with open(path, "w") as f:
-            f.write(fig_html)
+    # to-do
+    # if no_output:
+    #     if path is None:
+    #         out_3d['figure'].show(config={'displayModeBar': False})
+    #     else:
+    #         fig_html += figure_html(out_3d['figure'])
+    #
+    # if path is not None:
+    #     with open(path, "w") as f:
+    #         f.write(fig_html)
 
     # Save to a .pt file for other downstream tasks.
     # NB: we only save the 'pos' and all data attributes containing
     # 'color', the rest is discarded
     # NB: we save a dictionary, to limit dependencies
+
+    # to-do
+    os.makedirs(pt_path, exist_ok=True)
     if pt_path is not None:
         if osp.isdir(pt_path):
-            pt_path = osp.join(pt_path, f"viz_data.pt")
+            # to-do
+            # pt_path = osp.join(pt_path, f"viz_data.pt")
+            pt_id = len(glob.glob(osp.join(pt_path, f"viz_data_*.pt")))
+            pt_path = osp.join(pt_path, f"viz_data_{pt_id}.pt")
         else:
             pt_path = osp.splitext(pt_path)[0] + '.pt'
 
         data = {}
         for key in out_3d['data'].keys:
-            if key == 'pos' or 'color' in key:
+            # to-do
+            # if key == 'pos' or 'color' in key:
+            if 'pos' in key or 'intensity' in key or 'semantic_pred' in key or 'color' in key:
                 data[key] = out_3d['data'][key]
 
         torch.save(data, pt_path)

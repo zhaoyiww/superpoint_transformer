@@ -1,7 +1,7 @@
 import torch
-from ..data import NAG
-from ..transforms import Transform
-from ..utils.geometry import rodrigues_rotation_matrix
+from src.data import NAG
+from src.transforms import Transform
+from src.utils.geometry import rodrigues_rotation_matrix
 
 
 __all__ = [

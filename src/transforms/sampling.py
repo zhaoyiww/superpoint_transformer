@@ -5,10 +5,10 @@ from torch_geometric.utils import k_hop_subgraph, to_undirected
 from torch_cluster import grid_cluster
 from torch_scatter import scatter_mean
 from torch_geometric.nn.pool.consecutive import consecutive_cluster
-from ..utils import fast_randperm, sparse_sample, scatter_pca, sanitize_keys
-from ..transforms import Transform
-from ..data import Data, NAG, NAGBatch, CSRData, InstanceData, Cluster
-from ..utils.histogram import atomic_to_histogram
+from src.utils import fast_randperm, sparse_sample, scatter_pca, sanitize_keys
+from src.transforms import Transform
+from src.data import Data, NAG, NAGBatch, CSRData, InstanceData, Cluster
+from src.utils.histogram import atomic_to_histogram
 
 
 __all__ = [

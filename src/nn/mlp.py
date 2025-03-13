@@ -1,5 +1,5 @@
 from torch import nn
-from ..nn.norm import BatchNorm, INDEX_BASED_NORMS
+from src.nn.norm import BatchNorm, INDEX_BASED_NORMS
 
 
 __all__ = ['MLP', 'FFN', 'Classifier']

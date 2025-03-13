@@ -5,8 +5,8 @@ from typing import List, Tuple, Union
 from torch_geometric.nn.pool.consecutive import consecutive_cluster
 from torch_scatter import scatter_max, scatter_sum
 
-from ..data.csr import CSRData, CSRBatch
-from ..utils import tensor_idx, is_dense, has_duplicates, to_trimmed
+from src.data.csr import CSRData, CSRBatch
+from src.utils import tensor_idx, is_dense, has_duplicates, to_trimmed
 
 
 __all__ = ['InstanceData', 'InstanceBatch']
@@ -676,7 +676,7 @@ class InstanceData(CSRData):
         target = y_hist
 
         # Performance evaluation
-        from ..metrics import ConfusionMatrix
+        from src.metrics import ConfusionMatrix
         cm = ConfusionMatrix(num_classes, *metric_args, **metric_kwargs)
         cm(pred.cpu(), target.cpu())
         metrics = cm.all_metrics()
@@ -763,7 +763,7 @@ class InstanceData(CSRData):
         oracle_scores, oracle_y, oracle = self.oracle(num_classes)
 
         # Performance evaluation
-        from ..metrics import MeanAveragePrecision3D
+        from src.metrics import MeanAveragePrecision3D
         metric = MeanAveragePrecision3D(num_classes, **metric_kwargs)
         metric.update(oracle_scores, oracle_y, oracle)
         results = metric.compute()
@@ -798,7 +798,7 @@ class InstanceData(CSRData):
         oracle_scores, oracle_y, oracle = self.oracle(num_classes)
 
         # Performance evaluation
-        from ..metrics import PanopticQuality3D
+        from src.metrics import PanopticQuality3D
         metric = PanopticQuality3D(num_classes, **metric_kwargs)
         metric.update(oracle_y, oracle)
         results = metric.compute()

@@ -4,7 +4,7 @@ import torch
 import os.path as osp
 from tqdm import tqdm
 from copy import deepcopy
-from ..utils.hydra import init_config
+from src.utils.hydra import init_config
 
 
 src_folder = osp.dirname(osp.dirname(osp.abspath(__file__)))
@@ -25,7 +25,7 @@ def compute_semantic_metrics(
     model on a given dataset.
     """
     # Local imports to avoid import loop errors
-    from ..data import NAGBatch
+    from src.data import NAGBatch
 
     # Pick among train, val, and test datasets. It is important to note
     # that the train dataset produces augmented spherical samples of
@@ -97,7 +97,7 @@ def compute_semantic_metrics_s3dis_6fold(
     :return:
     """
     # Local import to avoid import loop errors
-    from ..metrics import ConfusionMatrix
+    from src.metrics import ConfusionMatrix
 
     # Very ugly fix to ignore lightning's warning messages about the
     # trainer and modules not being connected
@@ -168,7 +168,7 @@ def _set_attribute_preserving_transforms(dataset):
     `Data.x`, so we may visualize them.
     """
     # Local imports to avoid import loop errors
-    from ..transforms import NAGAddKeysTo
+    from src.transforms import NAGAddKeysTo
 
     for t in dataset.on_device_transform.transforms:
         if isinstance(t, NAGAddKeysTo):

@@ -1,6 +1,6 @@
 import logging
-from ..data import NAG
-from ..transforms import Transform
+from src.data import NAG
+from src.transforms import Transform
 
 
 log = logging.getLogger(__name__)

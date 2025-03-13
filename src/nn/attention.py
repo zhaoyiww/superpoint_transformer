@@ -2,7 +2,7 @@ import torch
 from torch import nn
 from torch_scatter import scatter_sum
 from torch_geometric.utils import softmax
-from ..utils.nn import build_qk_scale_func
+from src.utils.nn import build_qk_scale_func
 
 
 __all__ = ['SelfAttentionBlock']

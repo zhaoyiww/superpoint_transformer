@@ -10,11 +10,11 @@ from typing import List
 from torch_geometric.data.extract import extract_zip
 from torch_geometric.nn.pool.consecutive import consecutive_cluster
 
-from ..datasets import BaseDataset
-from ..data import Data, InstanceData
-from ..datasets.kitti360_config import *
-from ..utils.neighbors import knn_2
-from ..utils.color import to_float_rgb
+from src.datasets import BaseDataset
+from src.data import Data, InstanceData
+from src.datasets.kitti360_config import *
+from src.utils.neighbors import knn_2
+from src.utils.color import to_float_rgb
 
 
 DIR = os.path.dirname(os.path.realpath(__file__))

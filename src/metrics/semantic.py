@@ -4,7 +4,7 @@ import logging
 import numpy as np
 from torchmetrics.classification import MulticlassConfusionMatrix
 from torch_scatter import scatter_add
-from ..metrics.mean_average_precision import BaseMetricResults
+from src.metrics.mean_average_precision import BaseMetricResults
 
 
 log = logging.getLogger(__name__)

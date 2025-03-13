@@ -17,11 +17,11 @@ from torch_geometric.data.dataset import files_exist
 from torch_geometric.data.makedirs import makedirs
 from torch_geometric.data.dataset import _repr
 from torch_geometric.nn.pool.consecutive import consecutive_cluster
-import shutil
-from ..data import NAG
-from ..transforms import Transform, NAGSelectByKey, NAGRemoveKeys, \
+
+from src.data import NAG
+from src.transforms import Transform, NAGSelectByKey, NAGRemoveKeys, \
     SampleXYTiling, SampleRecursiveMainXYAxisTiling
-from ..visualization import show
+from src.visualization import show
 
 DIR = os.path.dirname(os.path.realpath(__file__))
 log = logging.getLogger(__name__)
@@ -150,6 +150,8 @@ class BaseDataset(InMemoryDataset):
     def __init__(
             self,
             root: str,
+            # to-do
+            config: str,
             stage: str = 'train',
             transform: Transform = None,
             pre_transform: Transform = None,
@@ -193,6 +195,9 @@ class BaseDataset(InMemoryDataset):
         self._segment_no_save_keys = segment_no_save_keys
         self._segment_load_keys = segment_load_keys
 
+        # to-do
+        self.config = config
+
         if in_memory:
             log.warning(
                 "'in_memory' was set to True. This means the entire dataset "
@@ -213,9 +218,8 @@ class BaseDataset(InMemoryDataset):
         # the XY plane. Each step splits the data in 2, wrt to its
         # geometry. The value of pc_tiling indicates the number of split
         # steps used. Hence, 2**pc_tiling tiles will be created.
-
+        # to-do
         xy_tiling = None
-        self.xy_tiling = None
 
         assert xy_tiling is None or pc_tiling is None, \
             "Cannot apply both XY and PC tiling, please choose only one."
@@ -236,11 +240,14 @@ class BaseDataset(InMemoryDataset):
 
         # Initialization with downloading and all preprocessing
         # root = osp.join(root, self.data_subdir_name)
-        root_2 = osp.join(osp.dirname(osp.dirname(osp.dirname(root))), 'raw')
-        os.makedirs(root_2, exist_ok=True)
-        shutil.copy(root, root_2)
-
-        super().__init__(osp.dirname(root_2), transform, pre_transform, pre_filter)
+        #############
+        # to-do
+        # root = '/scratch2/zhawang/projects/deformation/DeformHD_local/output/demo'
+        root = self.config.data_dir
+        # self.raw_dir = self.raw_dir.replace('raw', 'tiled_data')
+        # self.processed_dir = self.processed_dir.replace('processed', 'superpoint_partition_temp')
+        #############
+        super().__init__(root, transform, pre_transform, pre_filter)
 
         # Display the dataset pre_transform_hash and full path
         path = osp.join(self.processed_dir, "<stage>", self.pre_transform_hash)
@@ -521,6 +528,9 @@ class BaseDataset(InMemoryDataset):
     @property
     def raw_file_names(self) -> str:
         """The file paths to find in order to skip the download."""
+        # to-do
+        # self.raw_dir = self.raw_dir.replace('raw', 'tiled_data')
+        # self.processed_dir = self.processed_dir.replace('processed', 'superpoint_partition_temp')
         return self.raw_file_names_3d
 
     @property
@@ -589,7 +599,9 @@ class BaseDataset(InMemoryDataset):
         raw_ext = osp.splitext(self.raw_file_names_3d[0])[1]
         raw_path = osp.join(self.raw_dir, base_cloud_id + raw_ext)
 
-        return raw_path
+        return raw_path.replace('/test', '')
+        # to-do
+        # return raw_path
 
     @property
     def in_memory_data(self) -> Any:
@@ -618,7 +630,8 @@ class BaseDataset(InMemoryDataset):
 
     def download(self) -> None:
         self.download_warning()
-        self.download_dataset()
+        # to-do
+        # self.download_dataset()
 
     def download_dataset(self) -> None:
         """Download the dataset data. Modify this method to implement
@@ -660,8 +673,9 @@ class BaseDataset(InMemoryDataset):
         if files_exist(self.processed_paths):  # pragma: no cover
             return
 
-        if self.log and 'pytest' not in sys.modules:
-            print('Processing...', file=sys.stderr)
+        # if self.log and 'pytest' not in sys.modules:
+        #     # to-do
+        #     print('Processing...', file=sys.stderr)
 
         makedirs(self.processed_dir)
         self.process()
@@ -669,8 +683,9 @@ class BaseDataset(InMemoryDataset):
         path = osp.join(self.processed_dir, 'pre_filter.pt')
         torch.save(_repr(self.pre_filter), path)
 
-        if self.log and 'pytest' not in sys.modules:
-            print('Done!', file=sys.stderr)
+        # if self.log and 'pytest' not in sys.modules:
+        #     # to-do
+        #     print('Done!', file=sys.stderr)
 
     def process(self) -> None:
         # If some stages have mixed clouds (they rely on the same cloud
@@ -679,6 +694,7 @@ class BaseDataset(InMemoryDataset):
         # necessary folders, to avoid duplicate preprocessing
         # computation
         hash_dir = self.pre_transform_hash
+        # to-do
         # train_dir = osp.join(self.processed_dir, 'train', hash_dir)
         # val_dir = osp.join(self.processed_dir, 'val', hash_dir)
         test_dir = osp.join(self.processed_dir, 'test', hash_dir)
@@ -695,7 +711,6 @@ class BaseDataset(InMemoryDataset):
             #     os.makedirs(osp.dirname(test_dir), exist_ok=True)
             #     os.symlink(val_dir, test_dir, target_is_directory=True)
             # else:
-            #     os.makedirs(test_dir, exist_ok=True)
             os.makedirs(test_dir, exist_ok=True)
 
         # Process clouds one by one
@@ -711,12 +726,17 @@ class BaseDataset(InMemoryDataset):
             return
 
         # Create necessary parent folders if need be
-        os.makedirs(osp.dirname(cloud_path), exist_ok=True)
+        # to-do
+        # os.makedirs(osp.dirname(cloud_path), exist_ok=True)
 
         # Read the raw cloud corresponding to the final processed
         # `cloud_path` and convert it to a Data object
-        raw_path = self.processed_to_raw_path(cloud_path).replace('/test', '')
+        # to-do
+        # raw_path = self.processed_to_raw_path(cloud_path)
+        raw_path = self.processed_to_raw_path(cloud_path).replace('raw/test', self.config.file_folder)
+        raw_path = osp.join(osp.dirname(raw_path), osp.basename(raw_path).split('_')[0] + f'_tile_{self.config.tile_id}.ply')
         data = self.sanitized_read_single_raw_cloud(raw_path)
+        # to-do
 
         # If the cloud path indicates a tiling is needed, apply it here
         if self.xy_tiling is not None:
@@ -850,7 +870,9 @@ class BaseDataset(InMemoryDataset):
             NAG level which to inspect
         """
         problematic_clouds = []
-        for i_cloud, nag in tqdm(enumerate(self)):
+        # to-do
+        # for i_cloud, nag in tqdm(enumerate(self)):
+        for i_cloud, nag in enumerate(self):
             _, perm = consecutive_cluster(nag[level].obj.obj)
             y = nag[level].obj.y[perm]
             y_count = torch.bincount(y, minlength=self.num_classes + 1)
