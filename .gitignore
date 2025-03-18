@@ -154,11 +154,11 @@ logs/
 
 # Superpoint Transformer project
 .idea
-src/dependencies/parallel_cut_pursuit
-src/dependencies/grid_graph
-src/dependencies/FRNN
-src/dependencies/point_geometric_features
-src/dependencies/
+#src/dependencies/parallel_cut_pursuit
+#src/dependencies/grid_graph
+#src/dependencies/FRNN
+#src/dependencies/point_geometric_features
+#src/dependencies/
 *.pyc
 *DS_Store*
 *.vscode
