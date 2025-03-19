@@ -1,10 +1,15 @@
 #!/bin/bash
 
 # Local variables
-PROJECT_NAME=spt
-PYTHON=3.8
-TORCH=2.2.0
-CUDA_SUPPORTED=(11.8 12.1)
+#PROJECT_NAME=spt
+#PYTHON=3.8
+#TORCH=2.2.0
+#CUDA_SUPPORTED=(11.8 12.1)
+
+PROJECT_NAME=deformhd
+#PYTHON=3.8
+#TORCH=2.2.0
+#CUDA_SUPPORTED=(11.8 12.1)
 
 
 # Recover the project's directory from the position of the install.sh
