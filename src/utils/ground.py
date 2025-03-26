@@ -33,8 +33,10 @@ def filter_by_z_distance_of_global_min(pos, threshold):
         or lower of the lowest point (i.e. smallest Z) will be selected
     :return:
     """
+    ## TODO: cannot deal with noise points, it's better to take the 5-th min for instance
     assert is_xyz_tensor(pos)
-    return pos[:, 2] - pos[:, 2].min() < threshold
+    return pos[:, 2] - torch.kthvalue(pos[:, 2], k=5).values < threshold
+    # return pos[:, 2] - pos[:, 2].min() < threshold
 
 
 def filter_by_local_z_min(pos, grid):
