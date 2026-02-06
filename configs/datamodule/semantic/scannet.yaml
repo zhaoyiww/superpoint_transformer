@@ -2,7 +2,7 @@
 defaults:
   - /datamodule/semantic/default.yaml
 
-_target_: src.datamodules.scannet.ScanNetDataModule
+_target_: superpoint_transformer.src.datamodules.scannet.ScanNetDataModule
 
 dataloader:
     batch_size: 4

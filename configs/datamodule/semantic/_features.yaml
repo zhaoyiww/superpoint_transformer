@@ -26,6 +26,7 @@ extra_point_hf: ${eval:'["normal"] * ${datamodule.v_edge_hf_need_normal}'}
 extra_segment_hf: ${eval:'["normal"] * (${datamodule.h_edge_hf_need_normal} + ${datamodule.v_edge_hf_need_normal}) + ["log_length"] * ${datamodule.edge_hf_need_log_length} + ["log_surface"] * ${datamodule.edge_hf_need_log_surface} + ["log_volume"] * ${datamodule.edge_hf_need_log_volume} + ["log_size"] * ${datamodule.edge_hf_need_log_size}'}
 
 # complete list of segment features used for training, as named in the
+# complete list of segment features used for training, as named in the
 # attributes after preprocessing. Even if more segment features were
 # computed at preprocessing time, only the features required by
 # 'segment_hf' will be loaded at training time

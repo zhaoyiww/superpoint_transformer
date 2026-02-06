@@ -2,7 +2,7 @@
 defaults:
   - /datamodule/semantic/default.yaml
 
-_target_: src.datamodules.s3dis.S3DISDataModule
+_target_: superpoint_transformer.src.datamodules.s3dis.S3DISDataModule
 
 dataloader:
     batch_size: 1
@@ -21,12 +21,11 @@ in_memory: True  # set to True to load all processed S3DIS in RAM. This may acce
 
 # point features used for the partition
 partition_hf:
-  - 'rgb'
   - 'linearity'
   - 'planarity'
   - 'scattering'
-  - 'verticality'
-  - 'elevation'
+  - 'intensity'
+#  - 'elevation'
 
 # point features used for training
 point_hf:
